@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>New DNA Analysis Input - HelixLab</title>
+    <link href="assets/css/style.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        const API_BASE_URL = "https://biocompute-py.onrender.com";
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#195de6",
+                        "background-light": "#f6f6f8",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["Roboto Mono", "Fira Code", "monospace"],
+                    },
+                }
+            }
+        }
+    </script>
+    <script src="assets/js/session.js" defer></script>
+<script src="assets/js/analyze.js" defer></script>
+</head>
+<body class="bg-background-light text-[#111318] font-display min-h-screen flex flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full bg-white border-b border-[#f0f2f4]">
+    <div class="max-w-[1440px] mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <h2 class="text-[#111318] text-lg font-bold leading-tight tracking-[-0.015em]">HelixLabs</h2>
+        </div>
+        <nav class="hidden md:flex items-center gap-8">
+            <a class="text-primary font-bold text-sm leading-normal cursor-pointer" title="Start New Analysis">Analyze</a>
+            <a class="text-[#636f88] text-sm font-medium hover:text-primary transition-colors cursor-pointer" href="results.html" title="View Recent Results">Results</a>
+            <a class="text-[#636f88] text-sm font-medium hover:text-primary transition-colors cursor-pointer" href="database.html" title="View Database">Database</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <div class="h-10 w-10 rounded-full bg-cover bg-center border border-gray-200 cursor-pointer" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBpmReGX4Eae3JzSgWVRpcvOxF2-pgCQJIPVXHFJnpXUpU9AkNe7AzcYfag95sqw_SZm01hVeklu8HuNaiPpYL58fMGfqxswjVuKz6_2_tmNnxTlRgrm6MZQdoO3Tr6v9b6IJ95k8erE4j0FmkvnYWLlovTuLw81eLxgr8Q6xuE406GcxuSd3d7QMqTCfvLYes3un2Mrf74eXlWP6EseVDPPsp2HR_YSMCauEy_drertuj1EtatWPtXx19PkaLbb-7mPaOOJypEnQk");'></div>
+        </div>
+    </div>
+</header>
+<main class="flex-1 flex flex-col items-center py-8 px-4 sm:px-6">
+    <div class="w-full max-w-[1024px] flex flex-col gap-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div class="flex flex-col gap-2">
+                <h2 class="text-2xl font-bold tracking-tight text-[#111318]">New DNA Analysis</h2>
+                <p class="text-[#636f88] text-base font-normal">Configure your experiment parameters and input sequence data.</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl border border-[#dcdfe5] shadow-sm overflow-hidden">
+            <div class="p-6 md:p-8 border-b border-[#f0f2f4]">
+                <div class="flex flex-col gap-2 w-full">
+                    <label class="text-[#111318] text-sm font-semibold uppercase tracking-wider flex items-center gap-2" for="exp-desc">
+                        Description 
+                        <span class="text-[#636f88] font-normal normal-case text-xs">(Optional)</span>
+                    </label>
+                    <input class="w-full h-12 rounded-lg border border-[#dcdfe5] bg-white text-[#111318] px-4 text-base focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-[#9ca3af]" id="exp-desc" placeholder="Brief context notes..." type="text"/>
+                </div>
+            </div>
+            
+            <div class="p-6 md:p-8 pb-4">
+                <div class="flex items-center justify-between mb-3">
+                    <label class="text-[#111318] text-sm font-semibold uppercase tracking-wider flex items-center gap-2" for="dna-sequence">
+                        Raw Sequence Data
+                        <span class="material-symbols-outlined text-base text-[#636f88] cursor-help" title="Input valid FASTA or raw sequence">info</span>
+                    </label>
+                    <div class="flex items-center gap-3">
+                        <button class="text-xs font-medium text-[#636f88] hover:text-primary flex items-center gap-1 transition-colors">
+                            <span class="material-symbols-outlined text-sm">content_paste</span> Paste
+                        </button>
+                        <button class="text-xs font-medium text-[#636f88] hover:text-red-500 flex items-center gap-1 transition-colors">
+                            <span class="material-symbols-outlined text-sm">delete</span> Clear
+                        </button>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <div class="relative w-full rounded-lg border border-[#dcdfe5] bg-white focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary transition-all overflow-hidden flex flex-col">
+                        <div class="flex min-h-[320px]">
+                            <div class="hidden sm:flex flex-col items-end gap-[2px] py-4 pr-3 pl-2 bg-[#f8f9fa] border-r border-[#f0f2f4] select-none text-[#9ca3af] font-mono text-sm leading-6 w-12 text-right">
+                                <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                            </div>
+                            <textarea class="flex-1 w-full h-full min-h-[320px] resize-y bg-transparent border-0 p-4 text-[#111318] font-mono text-sm leading-6 placeholder:text-[#9ca3af]/50 focus:ring-0" id="dna-sequence" placeholder=">sequence_id
+ATCGGCTA..."></textarea>
+                        </div>
+                        <div class="h-10 bg-[#f8f9fa] border-t border-[#f0f2f4] flex items-center justify-between px-4 text-xs font-mono text-[#636f88]">
+                            <div class="flex items-center gap-4">
+                                <span class="flex items-center gap-1.5">
+                                    <span class="size-2 rounded-full bg-emerald-500"></span>
+                                    Valid Format
+                                </span>
+                            </div>
+                            <div>
+                                <span class="hidden sm:inline">Ln 1, Col 1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-2 flex items-start gap-2 text-xs text-[#636f88]">
+                    <span class="material-symbols-outlined text-sm mt-0.5">warning</span>
+                    <p>Ensure sequence contains only standard DNA nucleotides (A, T, C, G). Non-standard characters will be flagged.</p>
+                </div>
+            </div>
+
+            <div class="px-6 md:px-8 pb-8">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 rounded-lg bg-[#f8f9fa] border border-dashed border-[#dcdfe5]">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-primary/10 text-primary p-2 rounded-md">
+                            <span class="material-symbols-outlined">upload_file</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-sm font-semibold text-[#111318]">Import sequence file instead</span>
+                            <span class="text-xs text-[#636f88]">Supports .fasta, .txt, .gbk (Max 50MB)</span>
+                        </div>
+                    </div>
+                    <button class="text-sm font-medium text-primary hover:text-primary/80 bg-white border border-[#dcdfe5] px-4 py-2 rounded-md shadow-sm transition-colors whitespace-nowrap">
+                        Browse Files
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-[#f8f9fa] px-6 md:px-8 py-5 border-t border-[#dcdfe5] flex items-center justify-end gap-4">
+                <button class="px-6 h-11 rounded-lg border border-[#dcdfe5] text-[#111318] font-medium text-sm hover:bg-gray-50 transition-colors">
+                    Save Draft
+                </button>
+                <button class="px-8 h-11 rounded-lg bg-primary hover:bg-blue-600 text-white font-medium text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                    Analyze DNA
+                </button>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
