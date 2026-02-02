@@ -7,24 +7,18 @@
     <link href="assets/css/style.css" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
-       const API_BASE_URL = "https://biocompute-py.onrender.com";
+        const API_BASE_URL = "https://biocompute-py.onrender.com"; 
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        "primary": "#195de6",
-                        "background-light": "#f6f6f8",
-                    },
-                    fontFamily: {
-                        "display": ["Inter", "sans-serif"],
-                        "mono": ["Roboto Mono", "Fira Code", "monospace"],
-                    },
+                    colors: { "primary": "#195de6", "background-light": "#f6f6f8" },
+                    fontFamily: { "display": ["Inter", "sans-serif"], "mono": ["Roboto Mono", "Fira Code", "monospace"] },
                 }
             }
         }
     </script>
     <script src="assets/js/session.js" defer></script>
-<script src="assets/js/database.js" defer></script>
+    <script src="assets/js/database.js" defer></script>
 </head>
 <body class="bg-background-light text-slate-900 min-h-screen flex flex-col">
 <header class="sticky top-0 z-50 w-full bg-white border-b border-[#f0f2f4]">
@@ -33,9 +27,9 @@
             <h2 class="text-[#111318] text-lg font-bold leading-tight tracking-[-0.015em]">HelixLabs</h2>
         </div>
         <nav class="hidden md:flex items-center gap-8">
-            <a class="text-[#636f88] text-sm font-medium hover:text-primary transition-colors cursor-pointer" href="analyze.html" title="Start New Analysis">Analyze</a>
-            <a class="text-[#636f88] text-sm font-medium hover:text-primary transition-colors cursor-pointer" href="results.html" title="View Recent Results">Results</a>
-            <a class="text-primary font-bold text-sm leading-normal cursor-pointer" title="View Database">Database</a>
+            <a class="text-[#636f88] text-sm font-medium hover:text-primary transition-colors cursor-pointer" href="analyze.html">Analyze</a>
+            <a class="text-[#636f88] text-sm font-medium hover:text-primary transition-colors cursor-pointer" href="results.html">Results</a>
+            <a class="text-primary font-bold text-sm leading-normal cursor-pointer">Database</a>
         </nav>
         <div class="flex items-center gap-4">
             <div class="h-10 w-10 rounded-full bg-cover bg-center border border-gray-200 cursor-pointer" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBIH1P4TFs0f1b8qIleYpkZgsXxmoB1JUdL-99GB6E_DpdlyQYxLRmIwZaYspJL2JjyndYqzPe5Yuq_Np7Dp9HgSuJ6Dw2e-u6wTXMqYBaxjhGZhbISlgERdRHQb4rP331VmRootba6gZwzqajpwSeyHMYymrKl16ai6cRr3g3iLBeI8wWieyS_NsQHHe3ByzhDlNkiuWCQvLNMvJEZV6daQNAzkPt10rzKrnDEml3OqSu43mfg8zvzJN-sjjkmPITRAAULQogBUTA");'></div>
@@ -48,192 +42,30 @@
             <div class="flex items-center gap-3">
                 <div>
                     <h2 class="text-xl font-bold tracking-tight text-slate-900">Sequence Database</h2>
-                    <p class="text-xs text-slate-500 font-mono">5 Records found • 14.2 MB Total</p>
+                    <p class="text-xs text-slate-500 font-mono">Loading...</p>
                 </div>
             </div>
-            <button class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 transition-colors">
+            <button onclick="location.href='analyze.html'" class="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 transition-colors">
                 <span class="material-symbols-outlined text-[18px]">add</span>
                 Add Entry
             </button>
-        </div>
-        <div class="mb-4 flex flex-col sm:flex-row gap-3">
-            <div class="relative flex-1">
-                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                    <span class="material-symbols-outlined text-slate-400 text-[18px]">search</span>
-                </div>
-                <input class="block w-full rounded-md border-0 py-2 pl-9 pr-3 text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary text-sm font-mono shadow-sm" placeholder="Search by ID, gene name..." type="text"/>
-            </div>
-            <div class="w-full sm:w-48">
-                <select class="block w-full rounded-md border-0 py-2 pl-3 pr-8 text-slate-900 ring-1 ring-inset ring-slate-200 focus:ring-2 focus:ring-inset focus:ring-primary text-sm shadow-sm cursor-pointer">
-                    <option>Sort: ID (Desc)</option>
-                    <option>Sort: ID (Asc)</option>
-                    <option>Sort: Date (Newest)</option>
-                    <option>Sort: Length (Desc)</option>
-                </select>
-            </div>
         </div>
         <div class="rounded-lg border border-slate-300 overflow-hidden bg-white shadow-sm">
             <div class="overflow-x-auto custom-scrollbar">
                 <table class="min-w-full text-left text-sm whitespace-nowrap">
                     <thead class="bg-slate-100 border-b border-slate-300">
                         <tr>
-                            <th scope="col" class="px-4 py-3 font-semibold text-slate-900 border-r border-slate-200 w-[100px]">ID</th>
-                            <th scope="col" class="px-4 py-3 font-semibold text-slate-900 border-r border-slate-200">Sequence Definition</th>
-                            <th scope="col" class="px-4 py-3 font-semibold text-slate-900 border-r border-slate-200 w-[120px]">Length</th>
-                            <th scope="col" class="px-4 py-3 font-semibold text-slate-900 border-r border-slate-200 w-[120px]">GC Content</th>
-                            <th scope="col" class="px-4 py-3 font-semibold text-slate-900 border-r border-slate-200 w-[180px]">Timestamp</th>
-                            <th scope="col" class="px-4 py-3 text-right font-semibold text-slate-900 w-[100px]">Actions</th>
+                            <th class="px-4 py-3 font-semibold text-slate-900 border-r border-slate-200 w-[100px]">ID</th>
+                            <th class="px-4 py-3 font-semibold text-slate-900 border-r border-slate-200">Sequence Definition</th>
+                            <th class="px-4 py-3 font-semibold text-slate-900 border-r border-slate-200 w-[120px]">Length</th>
+                            <th class="px-4 py-3 font-semibold text-slate-900 border-r border-slate-200 w-[120px]">GC Content</th>
+                            <th class="px-4 py-3 font-semibold text-slate-900 border-r border-slate-200 w-[180px]">Timestamp</th>
+                            <th class="px-4 py-3 text-right font-semibold text-slate-900 w-[100px]">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-200 text-slate-700">
-                        <tr class="even:bg-slate-50 hover:bg-blue-50/50 transition-colors">
-                            <td class="px-4 py-3 font-mono text-xs font-medium text-slate-900 border-r border-slate-200">
-                                #SEQ_294
-                            </td>
-                            <td class="px-4 py-3 border-r border-slate-200">
-                                <div class="flex flex-col">
-                                    <span class="font-semibold text-slate-900">BRCA1 Variant Analysis</span>
-                                    <span class="text-xs text-slate-500 truncate max-w-[300px]">Exon 11 mutation study for patient cohort A</span>
-                                </div>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs border-r border-slate-200">
-                                <span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-700">1,240 bp</span>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs border-r border-slate-200">
-                                <span class="text-slate-600">42%</span>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs text-slate-500 border-r border-slate-200">
-                                2023-10-24 14:30
-                            </td>
-                            <td class="px-4 py-3 text-right">
-                                <button class="text-slate-400 hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
-                                <button class="text-slate-400 hover:text-red-500 transition-colors ml-2"><span class="material-symbols-outlined text-[18px]">delete</span></button>
-                            </td>
-                        </tr>
-                        <tr class="even:bg-slate-50 hover:bg-blue-50/50 transition-colors">
-                            <td class="px-4 py-3 font-mono text-xs font-medium text-slate-900 border-r border-slate-200">
-                                #SEQ_293
-                            </td>
-                            <td class="px-4 py-3 border-r border-slate-200">
-                                <div class="flex flex-col">
-                                    <span class="font-semibold text-slate-900">Plasmid pUC19 Control</span>
-                                    <span class="text-xs text-slate-500 truncate max-w-[300px]">Standard cloning vector reference sequence</span>
-                                </div>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs border-r border-slate-200">
-                                <span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-700">2,686 bp</span>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs border-r border-slate-200">
-                                <span class="text-slate-600">51%</span>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs text-slate-500 border-r border-slate-200">
-                                2023-10-22 09:15
-                            </td>
-                            <td class="px-4 py-3 text-right">
-                                <button class="text-slate-400 hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
-                                <button class="text-slate-400 hover:text-red-500 transition-colors ml-2"><span class="material-symbols-outlined text-[18px]">delete</span></button>
-                            </td>
-                        </tr>
-                        <tr class="even:bg-slate-50 hover:bg-blue-50/50 transition-colors">
-                            <td class="px-4 py-3 font-mono text-xs font-medium text-slate-900 border-r border-slate-200">
-                                #SEQ_292
-                            </td>
-                            <td class="px-4 py-3 border-r border-slate-200">
-                                <div class="flex flex-col">
-                                    <span class="font-semibold text-slate-900">Unknown Sample X</span>
-                                    <span class="text-xs text-slate-500 truncate max-w-[300px]">Extracted from soil sample #44, pending BLAST</span>
-                                </div>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs border-r border-slate-200">
-                                <span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-700">850 bp</span>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs border-r border-slate-200">
-                                <span class="text-slate-600">65%</span>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs text-slate-500 border-r border-slate-200">
-                                2023-10-20 16:45
-                            </td>
-                            <td class="px-4 py-3 text-right">
-                                <button class="text-slate-400 hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
-                                <button class="text-slate-400 hover:text-red-500 transition-colors ml-2"><span class="material-symbols-outlined text-[18px]">delete</span></button>
-                            </td>
-                        </tr>
-                        <tr class="even:bg-slate-50 hover:bg-blue-50/50 transition-colors">
-                            <td class="px-4 py-3 font-mono text-xs font-medium text-slate-900 border-r border-slate-200">
-                                #SEQ_289
-                            </td>
-                            <td class="px-4 py-3 border-r border-slate-200">
-                                <div class="flex flex-col">
-                                    <span class="font-semibold text-slate-900">CRISPR Target Site 4</span>
-                                    <span class="text-xs text-slate-500 truncate max-w-[300px]">Guide RNA sequence targeting promoter region</span>
-                                </div>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs border-r border-slate-200">
-                                <span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-700">23 bp</span>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs border-r border-slate-200">
-                                <span class="text-slate-600">55%</span>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs text-slate-500 border-r border-slate-200">
-                                2023-10-18 11:20
-                            </td>
-                            <td class="px-4 py-3 text-right">
-                                <button class="text-slate-400 hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
-                                <button class="text-slate-400 hover:text-red-500 transition-colors ml-2"><span class="material-symbols-outlined text-[18px]">delete</span></button>
-                            </td>
-                        </tr>
-                        <tr class="even:bg-slate-50 hover:bg-blue-50/50 transition-colors">
-                            <td class="px-4 py-3 font-mono text-xs font-medium text-slate-900 border-r border-slate-200">
-                                #SEQ_285
-                            </td>
-                            <td class="px-4 py-3 border-r border-slate-200">
-                                <div class="flex flex-col">
-                                    <span class="font-semibold text-slate-900">Mitochondrial DNA Loop</span>
-                                    <span class="text-xs text-slate-500 truncate max-w-[300px]">D-loop control region from specimen H-2023-X</span>
-                                </div>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs border-r border-slate-200">
-                                <span class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-700">450 bp</span>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs border-r border-slate-200">
-                                <span class="text-slate-600">48%</span>
-                            </td>
-                            <td class="px-4 py-3 font-mono text-xs text-slate-500 border-r border-slate-200">
-                                2023-10-15 08:05
-                            </td>
-                            <td class="px-4 py-3 text-right">
-                                <button class="text-slate-400 hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">edit</span></button>
-                                <button class="text-slate-400 hover:text-red-500 transition-colors ml-2"><span class="material-symbols-outlined text-[18px]">delete</span></button>
-                            </td>
-                        </tr>
-                    </tbody>
+                        </tbody>
                 </table>
-            </div>
-            <div class="flex items-center justify-between border-t border-slate-200 bg-white px-4 py-3 sm:px-6">
-                <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-                    <div>
-                        <p class="text-sm text-slate-700">
-                            Showing <span class="font-medium text-slate-900">1</span> to <span class="font-medium text-slate-900">5</span> of <span class="font-medium text-slate-900">42</span> results
-                        </p>
-                    </div>
-                    <div>
-                        <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                            <a href="#" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
-                                <span class="sr-only">Previous</span>
-                                <span class="material-symbols-outlined text-[16px]">chevron_left</span>
-                            </a>
-                            <a href="#" aria-current="page" class="relative z-10 inline-flex items-center bg-primary px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">1</a>
-                            <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-slate-900 ring-1 ring-inset ring-gray-300 hover:bg-slate-50 focus:z-20 focus:outline-offset-0">2</a>
-                            <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-slate-900 ring-1 ring-inset ring-gray-300 hover:bg-slate-50 focus:z-20 focus:outline-offset-0">3</a>
-                            <span class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-slate-700 ring-1 ring-inset ring-slate-300 focus:outline-offset-0">...</span>
-                            <a class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-slate-900 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 focus:z-20 focus:outline-offset-0">8</a>
-                            <a class="relative inline-flex items-center rounded-r-md px-2 py-2 text-slate-400 ring-1 ring-inset ring-gray-300 hover:bg-slate-50 focus:z-20 focus:outline-offset-0">
-                                <span class="sr-only">Next</span>
-                                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-                            </a>
-                        </nav>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

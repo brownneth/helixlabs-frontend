@@ -14,10 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             btn.disabled = true;
-            btn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Signing in...`;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[20px]">progress_activity</span> Signing in...`;
 
             try {
-                const response = await fetch(`${CONFIG.API_BASE_URL}/auth/login`, {
+                const response = await fetch(`${API_BASE_URL}/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error("Login Error:", error);
-                alert("Cannot connect to server. Ensure backend is running.");
+                alert("Cannot connect to server. Check your internet or backend URL.");
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = originalText;
@@ -59,10 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             btn.disabled = true;
-            btn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Creating...`;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[20px]">progress_activity</span> Creating...`;
 
             try {
-                const response = await fetch(`${CONFIG.API_BASE_URL}/auth/register`, {
+                const response = await fetch(`${API_BASE_URL}/auth/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password, firstname, lastname })
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     alert("Account created! Please sign in.");
-                    location.reload();
+                    location.reload(); 
                 } else {
                     alert(data.message || "Registration failed");
                 }

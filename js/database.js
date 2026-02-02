@@ -1,33 +1,29 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const tableBody = document.querySelector('tbody');
     const countDisplay = document.querySelector('p.text-xs.font-mono');
+    tableBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-gray-500">Loading records...</td></tr>`;
+
     try {
-        const response = await fetch(`${CONFIG.API_BASE_URL}/sequences/me`, {
+        const response = await fetch(`${API_BASE_URL}/sequences/me`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
         const result = await response.json();
-    const searchInput = document.querySelector('input[type="text"]');
-searchInput.addEventListener('keyup', async (e) => {
-    if (e.key === 'Enter') {
-        const query = searchInput.value;
-        const endpoint = query ? `/sequences/search?q=${query}` : '/sequences/me';
-    }
-});
 
         if (response.ok && result.success) {
             renderTable(result.data);
         } else {
             tableBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-gray-500">No records found. Start a new analysis!</td></tr>`;
+            countDisplay.textContent = "0 Records found";
         }
     } catch (error) {
         console.error("Database Error:", error);
-        tableBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-red-500">Failed to load data.</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-red-500">Failed to load data. Check console.</td></tr>`;
     }
 
     function renderTable(rows) {
-        if (countDisplay) countDisplay.textContent = `${rows.length} Records found`;
+        countDisplay.textContent = `${rows.length} Records found`;
 
         tableBody.innerHTML = rows.map(row => `
             <tr class="even:bg-slate-50 hover:bg-blue-50/50 transition-colors">
@@ -50,7 +46,7 @@ searchInput.addEventListener('keyup', async (e) => {
                     ${new Date(row.created_at).toLocaleDateString()}
                 </td>
                 <td class="px-4 py-3 text-right">
-                    <button onclick="viewAnalysis(${row.id}, '${row.sequence}', '${row.description}', ${row.length}, ${row.gc_content}, '${row.reverse_complement}', '${row.created_at}')" class="text-slate-400 hover:text-primary transition-colors" title="View Report">
+                    <button onclick="window.viewAnalysis(${row.id}, '${row.sequence}', '${row.description || ''}', ${row.length}, ${row.gc_content}, '${row.reverse_complement}', '${row.created_at}')" class="text-slate-400 hover:text-primary transition-colors" title="View Report">
                         <span class="material-symbols-outlined text-[18px]">visibility</span>
                     </button>
                 </td>

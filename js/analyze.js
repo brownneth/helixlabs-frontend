@@ -16,10 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const originalText = analyzeBtn.innerHTML;
         analyzeBtn.disabled = true;
-        analyzeBtn.innerHTML = `<span class="material-symbols-outlined animate-spin">progress_activity</span> Analyzing...`;
+        analyzeBtn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[20px]">progress_activity</span> Analyzing...`;
 
         try {
-            const response = await fetch(`${CONFIG.API_BASE_URL}/sequences`, {
+            const response = await fetch(`${API_BASE_URL}/sequences`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
