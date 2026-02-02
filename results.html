@@ -11,8 +11,14 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { "primary": "#195de6", "background-light": "#f6f6f8" },
-                    fontFamily: { "display": ["Inter", "sans-serif"], "mono": ["Roboto Mono", "Fira Code", "monospace"] },
+                    colors: {
+                        "primary": "#195de6",
+                        "background-light": "#f6f6f8",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["Roboto Mono", "Fira Code", "monospace"],
+                    },
                 }
             }
         }
@@ -21,7 +27,24 @@
     <script src="assets/js/results.js" defer></script>
 </head>
 <body class="bg-background-light font-display text-[#111318] transition-colors duration-200">
-<main class="flex flex-1 flex-col items-center py-8 px-4 sm:px-8 lg:px-12">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+    <header class="sticky top-0 z-50 w-full bg-white border-b border-[#f0f2f4]">
+        <div class="max-w-[1440px] mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <h2 class="text-[#111318] text-lg font-bold leading-tight tracking-[-0.015em]">HelixLabs</h2>
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a class="text-[#636f88] text-sm font-medium hover:text-primary transition-colors cursor-pointer" href="analyze.html" title="Start New Analysis">Analyze</a>
+                <a class="text-primary font-bold text-sm leading-normal cursor-pointer" title="View Recent Results">Results</a>
+                <a class="text-[#636f88] text-sm font-medium hover:text-primary transition-colors cursor-pointer" href="database.html" title="View Database">Database</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <div class="h-10 w-10 rounded-full bg-cover bg-center border border-gray-200 cursor-pointer" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC8w38sbLR-MoQbLF7YpdTwBbntgu9SXwtO9qVI7ZtiMzUj2uyqH49_hh_6g3GNheV20wGv2xQHH026zgOZVbIqBdti9UDuA8kRcjlrwWeFIgHt1ptOchNmpIvayb4w23p75Ni1Q1x8MvwsQprlDAyhzpJcIpzLpOwDJ7bYyuhVoI4uGSwW6McjE5cyVVxipxxwBmQD6PQTYtlhYsnKDN7eFaL3BQ2uRWqzA4sVhDp6B9zHLlOPfvhKBv7_zDMjDhlGcYLD3e4by1g");'></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex flex-1 flex-col items-center py-8 px-4 sm:px-8 lg:px-12">
         <div class="flex w-full max-w-[1024px] flex-col gap-8">
             <div class="flex flex-col gap-4">
                 <div class="flex flex-wrap items-end justify-between gap-4">
@@ -70,7 +93,77 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col gap-4 rounded-xl border border-[#e5e7eb] bg-white p-6 shadow-sm">
+                    <div class="flex items-start justify-between">
+                        <div class="flex flex-col gap-1">
+                            <p class="text-sm font-medium text-[#636f88]">Sequence Length</p>
+                            <p class="text-3xl font-bold text-[#111318]">0 <span class="text-lg font-normal text-gray-500">bp</span></p>
+                        </div>
+                        <div class="rounded-full bg-blue-50 p-2 text-primary">
+                            <span class="material-symbols-outlined">straighten</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-4 rounded-xl border border-[#e5e7eb] bg-white p-6 shadow-sm">
+                    <div class="flex items-start justify-between">
+                        <div class="flex flex-col gap-1 w-full">
+                            <div class="flex justify-between items-center w-full mb-1">
+                                <p class="text-sm font-medium text-[#636f88]">GC Content</p>
+                                <span class="text-3xl font-bold text-[#111318]">0%</span>
+                            </div>
+                            <div class="w-full rounded-full bg-[#f0f2f4] h-3 mt-2 overflow-hidden">
+                                <div class="h-full rounded-full bg-primary" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <div class="rounded-xl border border-[#e5e7eb] bg-white shadow-sm overflow-hidden">
+                <div class="px-6 py-4 border-b border-[#e5e7eb] bg-gray-50/50">
+                    <h3 class="font-bold text-lg text-[#111318]">Sequence Data</h3>
+                </div>
+                <div class="divide-y divide-[#e5e7eb]">
+                    <div class="p-6 flex flex-col gap-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-gray-400 text-[20px]">genetics</span>
+                                <span class="text-sm font-bold text-[#111318] uppercase tracking-wider">Original Input</span>
+                            </div>
+                            <button class="group flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium text-primary hover:bg-blue-50 transition-colors" title="Copy to clipboard">
+                                <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                                <span>Copy FASTA</span>
+                            </button>
+                        </div>
+                        <div class="relative w-full rounded-lg bg-[#f8fafc] border border-[#e2e8f0] p-4">
+                            <div class="sequence-scroll w-full overflow-x-auto">
+<pre class="font-mono text-sm leading-6 text-gray-700 whitespace-pre">Loading sequence data...</pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col gap-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-gray-400 text-[20px]">swap_horiz</span>
+                                <span class="text-sm font-bold text-[#111318] uppercase tracking-wider">Reverse Complement</span>
+                            </div>
+                            <button class="group flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium text-primary hover:bg-blue-50 transition-colors" title="Copy to clipboard">
+                                <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                                <span>Copy Sequence</span>
+                            </button>
+                        </div>
+                        <div class="relative w-full rounded-lg bg-[#f8fafc] border border-[#e2e8f0] p-4">
+                            <div class="sequence-scroll w-full overflow-x-auto">
+<pre class="font-mono text-sm leading-6 text-gray-700 whitespace-pre">Loading sequence data...</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
+</div>
 </body>
 </html>
