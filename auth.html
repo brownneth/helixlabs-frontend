@@ -5,168 +5,164 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Authentication Center - HelixLabs</title>
     <link href="assets/css/style.css" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
-        const API_BASE_URL = "https://biocompute-py.onrender.com";
-        window.tailwind = {
-            config: {
-                theme: {
-                    extend: {
-                        colors: {
-                            "primary": "#195de6",
-                            "background-light": "#f6f6f8",
-                        },
-                        fontFamily: {
-                            "display": ["Inter", "sans-serif"],
-                            "mono": ["Roboto Mono", "Fira Code", "monospace"],
-                        },
-                    }
+        window.API_BASE_URL = "https://biocompute-py.onrender.com";
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#195de6",
+                        "background-light": "#f6f6f8",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "mono": ["Roboto Mono", "Fira Code", "monospace"],
+                    },
                 }
             }
         }
     </script>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
     <script src="js/auth.js" defer></script>
 </head>
 <body class="bg-background-light min-h-screen flex flex-col items-center justify-center p-4">
     <div class="w-full max-w-[440px] flex flex-col gap-6">
-    <div class="flex flex-col items-center justify-center gap-3">
-        <div class="text-center">
-            <h1 class="text-gray-900 text-xl font-bold tracking-tight">HelixLabs</h1>
-            <p class="text-gray-500 text-sm font-medium">Sequence Analysis Platform</p>
-        </div>
-    </div>
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden w-full">
-        <div class="pt-8 pb-2 px-8 text-center">
-            <h2 id="auth-headline" class="text-[#111318] tracking-tight text-[24px] font-bold leading-tight">Welcome Back</h2>
-        </div>
-        <div class="px-8 mt-4">
-            <div class="flex border-b border-[#dcdfe5] w-full">
-                <button id="tab-signin" onclick="switchTab('signin')" class="group flex flex-1 flex-col items-center justify-center border-b-[2px] border-primary pb-3 pt-2 transition-colors">
-                    <span id="text-signin" class="text-primary text-sm font-semibold leading-normal tracking-[0.015em]">Sign In</span>
-                </button>
-                <button id="tab-signup" onclick="switchTab('signup')" class="group flex flex-1 flex-col items-center justify-center border-b-[2px] border-transparent pb-3 pt-2 hover:border-gray-300 transition-colors">
-                    <span id="text-signup" class="text-[#636f88] group-hover:text-gray-900 text-sm font-semibold leading-normal tracking-[0.015em]">Sign Up</span>
-                </button>
+        <div class="flex flex-col items-center justify-center gap-3">
+            <div class="text-center">
+                <h1 class="text-gray-900 text-xl font-bold tracking-tight">HelixLabs</h1>
+                <p class="text-gray-500 text-sm font-medium">Sequence Analysis Platform</p>
             </div>
         </div>
-        
-        <div class="p-8">
-            <form id="form-signin" class="flex flex-col gap-5 fade-in">
-                <div class="flex flex-col gap-1.5">
-                    <label class="text-[#111318] text-sm font-medium leading-normal" for="signin-email">Institutional Email</label>
-                    <div class="relative">
-                        <input class="form-input flex w-full rounded-lg border border-[#dcdfe5] bg-white text-[#111318] placeholder:text-gray-400 h-12 px-4 text-sm focus:outline-0 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="signin-email" name="email" placeholder="researcher@university.edu" type="email" value=""/>
-                        <div class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                            <span class="material-symbols-outlined text-[20px]">mail</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-1.5">
-                    <div class="flex justify-between items-center">
-                        <label class="text-[#111318] text-sm font-medium leading-normal" for="signin-password">Password</label>
-                    </div>
-                    <div class="relative">
-                        <input class="form-input flex w-full rounded-lg border border-[#dcdfe5] bg-white text-[#111318] placeholder:text-gray-400 h-12 px-4 text-sm focus:outline-0 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="signin-password" name="password" placeholder="••••••••••••" type="password" value=""/>
-                        <div class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-gray-600 transition-colors">
-                            <span class="material-symbols-outlined text-[20px]">visibility_off</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-end">
-                    <a class="text-primary text-sm font-medium hover:text-blue-700 transition-colors" href="#">
-                        Forgot Password?
-                    </a>
-                </div>
-                <button class="mt-2 w-full bg-primary hover:bg-blue-700 text-white font-semibold h-12 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm focus:ring-4 focus:ring-primary/30" type="button">
-                    <span class="material-symbols-outlined text-[20px]">login</span>
-                    Access Platform
-                </button>
-            </form>
 
-            <form id="form-signup" class="flex flex-col gap-5 hidden fade-in">
-                <div class="flex gap-4">
-                    <div class="flex flex-col gap-1.5 w-1/2">
-                        <label class="text-[#111318] text-sm font-medium leading-normal" for="firstname">First name</label>
-                        <input class="form-input flex w-full rounded-lg border border-[#dcdfe5] bg-white text-[#111318] placeholder:text-gray-400 h-12 px-4 text-sm focus:outline-0 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="firstname" name="firstname" placeholder="Jane" type="text" value=""/>
-                    </div>
-                    <div class="flex flex-col gap-1.5 w-1/2">
-                        <label class="text-[#111318] text-sm font-medium leading-normal" for="lastname">Last name</label>
-                        <input class="form-input flex w-full rounded-lg border border-[#dcdfe5] bg-white text-[#111318] placeholder:text-gray-400 h-12 px-4 text-sm focus:outline-0 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="lastname" name="lastname" placeholder="Doe" type="text" value=""/>
-                    </div>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden w-full">
+            <div class="pt-8 pb-2 px-8 text-center">
+                <h2 id="auth-headline" class="text-[#111318] tracking-tight text-[24px] font-bold leading-tight">Welcome Back</h2>
+            </div>
+            
+            <div class="px-8 mt-4">
+                <div class="flex border-b border-[#dcdfe5] w-full">
+                    <button id="tab-signin" onclick="switchTab('signin')" class="group flex flex-1 flex-col items-center justify-center border-b-[2px] border-primary pb-3 pt-2 transition-colors">
+                        <span id="text-signin" class="text-primary text-sm font-semibold leading-normal tracking-[0.015em]">Sign In</span>
+                    </button>
+                    <button id="tab-signup" onclick="switchTab('signup')" class="group flex flex-1 flex-col items-center justify-center border-b-[2px] border-transparent pb-3 pt-2 hover:border-gray-300 transition-colors">
+                        <span id="text-signup" class="text-[#636f88] group-hover:text-gray-900 text-sm font-semibold leading-normal tracking-[0.015em]">Sign Up</span>
+                    </button>
                 </div>
+            </div>
+            
+            <div class="p-8">
+                <form id="form-signin" class="flex flex-col gap-5 fade-in">
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[#111318] text-sm font-medium leading-normal" for="signin-email">Institutional Email</label>
+                        <div class="relative">
+                            <input class="form-input flex w-full rounded-lg border border-[#dcdfe5] bg-white text-[#111318] placeholder:text-gray-400 h-12 px-4 text-sm focus:outline-0 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="signin-email" name="email" placeholder="researcher@university.edu" type="email" value=""/>
+                            <div class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+                                <span class="material-symbols-outlined text-[20px]">mail</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <div class="flex justify-between items-center">
+                            <label class="text-[#111318] text-sm font-medium leading-normal" for="signin-password">Password</label>
+                        </div>
+                        <div class="relative">
+                            <input class="form-input flex w-full rounded-lg border border-[#dcdfe5] bg-white text-[#111318] placeholder:text-gray-400 h-12 px-4 text-sm focus:outline-0 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="signin-password" name="password" placeholder="••••••••••••" type="password" value=""/>
+                            <div class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-gray-600 transition-colors">
+                                <span class="material-symbols-outlined text-[20px]">visibility_off</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="mt-2 w-full bg-primary hover:bg-blue-700 text-white font-semibold h-12 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm focus:ring-4 focus:ring-primary/30" type="button">
+                        <span class="material-symbols-outlined text-[20px]">login</span>
+                        Access Platform
+                    </button>
+                </form>
 
-                <div class="flex flex-col gap-1.5">
-                    <label class="text-[#111318] text-sm font-medium leading-normal" for="signup-email">Institutional Email</label>
-                    <div class="relative">
-                        <input class="form-input flex w-full rounded-lg border border-[#dcdfe5] bg-white text-[#111318] placeholder:text-gray-400 h-12 px-4 text-sm focus:outline-0 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="signup-email" name="email" placeholder="researcher@university.edu" type="email" value=""/>
-                        <div class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
-                            <span class="material-symbols-outlined text-[20px]">mail</span>
+                <form id="form-signup" class="flex flex-col gap-5 hidden fade-in">
+                    <div class="flex gap-4">
+                        <div class="flex flex-col gap-1.5 w-1/2">
+                            <label class="text-[#111318] text-sm font-medium leading-normal" for="firstname">First name</label>
+                            <input class="form-input flex w-full rounded-lg border border-[#dcdfe5] bg-white text-[#111318] placeholder:text-gray-400 h-12 px-4 text-sm focus:outline-0 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="firstname" name="firstname" placeholder="Jane" type="text" value=""/>
+                        </div>
+                        <div class="flex flex-col gap-1.5 w-1/2">
+                            <label class="text-[#111318] text-sm font-medium leading-normal" for="lastname">Last name</label>
+                            <input class="form-input flex w-full rounded-lg border border-[#dcdfe5] bg-white text-[#111318] placeholder:text-gray-400 h-12 px-4 text-sm focus:outline-0 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="lastname" name="lastname" placeholder="Doe" type="text" value=""/>
                         </div>
                     </div>
-                </div>
-                <div class="flex flex-col gap-1.5">
-                    <label class="text-[#111318] text-sm font-medium leading-normal" for="signup-password">Password</label>
-                    <div class="relative">
-                        <input class="form-input flex w-full rounded-lg border border-[#dcdfe5] bg-white text-[#111318] placeholder:text-gray-400 h-12 px-4 text-sm focus:outline-0 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="signup-password" name="password" placeholder="Create a password" type="password" value=""/>
-                        <div class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-gray-600 transition-colors">
-                            <span class="material-symbols-outlined text-[20px]">visibility_off</span>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[#111318] text-sm font-medium leading-normal" for="signup-email">Institutional Email</label>
+                        <div class="relative">
+                            <input class="form-input flex w-full rounded-lg border border-[#dcdfe5] bg-white text-[#111318] placeholder:text-gray-400 h-12 px-4 text-sm focus:outline-0 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="signup-email" name="email" placeholder="researcher@university.edu" type="email" value=""/>
+                            <div class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+                                <span class="material-symbols-outlined text-[20px]">mail</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <button class="mt-2 w-full bg-primary hover:bg-blue-700 text-white font-semibold h-12 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm focus:ring-4 focus:ring-primary/30" type="button">
-                    <span class="material-symbols-outlined text-[20px]">person_add</span>
-                    Create Account
-                </button>
-            </form>
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[#111318] text-sm font-medium leading-normal" for="signup-password">Password</label>
+                        <div class="relative">
+                            <input class="form-input flex w-full rounded-lg border border-[#dcdfe5] bg-white text-[#111318] placeholder:text-gray-400 h-12 px-4 text-sm focus:outline-0 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all" id="signup-password" name="password" placeholder="Create a password" type="password" value=""/>
+                            <div class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer hover:text-gray-600 transition-colors">
+                                <span class="material-symbols-outlined text-[20px]">visibility_off</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="mt-2 w-full bg-primary hover:bg-blue-700 text-white font-semibold h-12 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-sm focus:ring-4 focus:ring-primary/30" type="button">
+                        <span class="material-symbols-outlined text-[20px]">person_add</span>
+                        Create Account
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="text-center">
+            <p class="text-[#636f88] text-xs">
+                By accessing this system, you agree to the <a class="underline hover:text-gray-900" href="#">Terms of Service</a> and <a class="underline hover:text-gray-900" href="#">Privacy Policy</a>.
+            </p>
         </div>
     </div>
-    <div class="text-center">
-        <p class="text-[#636f88] text-xs">
-            By accessing this system, you agree to the <a class="underline hover:text-gray-900" href="#">Terms of Service</a> and <a class="underline hover:text-gray-900" href="#">Privacy Policy</a>.
-        </p>
-    </div>
-</div>
 
-<script>
-    function switchTab(tab) {
-        const headline = document.getElementById('auth-headline');
-        const signinForm = document.getElementById('form-signin');
-        const signupForm = document.getElementById('form-signup');
-        const tabSignin = document.getElementById('tab-signin');
-        const tabSignup = document.getElementById('tab-signup');
-        const textSignin = document.getElementById('text-signin');
-        const textSignup = document.getElementById('text-signup');
+    <script>
+        function switchTab(tab) {
+            const headline = document.getElementById('auth-headline');
+            const signinForm = document.getElementById('form-signin');
+            const signupForm = document.getElementById('form-signup');
+            const tabSignin = document.getElementById('tab-signin');
+            const tabSignup = document.getElementById('tab-signup');
+            const textSignin = document.getElementById('text-signin');
+            const textSignup = document.getElementById('text-signup');
 
-        if (tab === 'signup') {
-            headline.textContent = "Welcome to HelixLabs";
-            signinForm.classList.add('hidden');
-            signupForm.classList.remove('hidden');
-            
-            tabSignin.classList.replace('border-primary', 'border-transparent');
-            tabSignin.classList.add('hover:border-gray-300');
-            tabSignup.classList.replace('border-transparent', 'border-primary');
-            tabSignup.classList.remove('hover:border-gray-300');
-            
-            textSignin.classList.remove('text-primary');
-            textSignin.classList.add('text-[#636f88]');
-            textSignup.classList.remove('text-[#636f88]');
-            textSignup.classList.add('text-primary');
-        } else {
-            headline.textContent = "Welcome Back";
-            signupForm.classList.add('hidden');
-            signinForm.classList.remove('hidden');
-            
-            tabSignup.classList.replace('border-primary', 'border-transparent');
-            tabSignup.classList.add('hover:border-gray-300');
-            tabSignin.classList.replace('border-transparent', 'border-primary');
-            tabSignin.classList.remove('hover:border-gray-300');
+            if (tab === 'signup') {
+                headline.textContent = "Welcome to HelixLabs";
+                signinForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                
+                tabSignin.classList.replace('border-primary', 'border-transparent');
+                tabSignin.classList.add('hover:border-gray-300');
+                tabSignup.classList.replace('border-transparent', 'border-primary');
+                tabSignup.classList.remove('hover:border-gray-300');
+                
+                textSignin.classList.remove('text-primary');
+                textSignin.classList.add('text-[#636f88]');
+                textSignup.classList.remove('text-[#636f88]');
+                textSignup.classList.add('text-primary');
+            } else {
+                headline.textContent = "Welcome Back";
+                signupForm.classList.add('hidden');
+                signinForm.classList.remove('hidden');
+                
+                tabSignup.classList.replace('border-primary', 'border-transparent');
+                tabSignup.classList.add('hover:border-gray-300');
+                tabSignin.classList.replace('border-transparent', 'border-primary');
+                tabSignin.classList.remove('hover:border-gray-300');
 
-            textSignup.classList.remove('text-primary');
-            textSignup.classList.add('text-[#636f88]');
-            textSignin.classList.remove('text-[#636f88]');
-            textSignin.classList.add('text-primary');
+                textSignup.classList.remove('text-primary');
+                textSignup.classList.add('text-[#636f88]');
+                textSignin.classList.remove('text-[#636f88]');
+                textSignin.classList.add('text-primary');
+            }
         }
-    }
-</script>
+    </script>
 </body>
 </html>
