@@ -5,26 +5,11 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>DNA Analysis Results</title>
     <link href="assets/css/style.css" rel="stylesheet"/>
+    <script src="js/config.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script>
-        const API_BASE_URL = "https://biocompute-py.onrender.com";
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#195de6",
-                        "background-light": "#f6f6f8",
-                    },
-                    fontFamily: {
-                        "display": ["Inter", "sans-serif"],
-                        "mono": ["Roboto Mono", "Fira Code", "monospace"],
-                    },
-                }
-            }
-        }
-    </script>
-    <script src="assets/js/session.js" defer></script>
-    <script src="assets/js/results.js" defer></script>
+    
+    <script src="js/session.js" defer></script>
+    <script src="js/results.js" defer></script>
 </head>
 <body class="bg-background-light font-display text-[#111318] transition-colors duration-200">
 <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
@@ -43,7 +28,6 @@
             </div>
         </div>
     </header>
-
     <main class="flex flex-1 flex-col items-center py-8 px-4 sm:px-8 lg:px-12">
         <div class="flex w-full max-w-[1024px] flex-col gap-8">
             <div class="flex flex-col gap-4">

@@ -5,26 +5,11 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>New DNA Analysis Input - HelixLab</title>
     <link href="assets/css/style.css" rel="stylesheet"/>
+    <script src="js/config.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script>
-        const API_BASE_URL = "https://biocompute-py.onrender.com";
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#195de6",
-                        "background-light": "#f6f6f8",
-                    },
-                    fontFamily: {
-                        "display": ["Inter", "sans-serif"],
-                        "mono": ["Roboto Mono", "Fira Code", "monospace"],
-                    },
-                }
-            }
-        }
-    </script>
-    <script src="assets/js/session.js" defer></script>
-<script src="assets/js/analyze.js" defer></script>
+    
+    <script src="js/session.js" defer></script>
+    <script src="js/analyze.js" defer></script>
 </head>
 <body class="bg-background-light text-[#111318] font-display min-h-screen flex flex-col overflow-x-hidden">
 <header class="sticky top-0 z-50 w-full bg-white border-b border-[#f0f2f4]">
@@ -82,8 +67,7 @@
                             <div class="hidden sm:flex flex-col items-end gap-[2px] py-4 pr-3 pl-2 bg-[#f8f9fa] border-r border-[#f0f2f4] select-none text-[#9ca3af] font-mono text-sm leading-6 w-12 text-right">
                                 <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
                             </div>
-                            <textarea class="flex-1 w-full h-full min-h-[320px] resize-y bg-transparent border-0 p-4 text-[#111318] font-mono text-sm leading-6 placeholder:text-[#9ca3af]/50 focus:ring-0" id="dna-sequence" placeholder=">sequence_id
-ATCGGCTA..."></textarea>
+                            <textarea class="flex-1 w-full h-full min-h-[320px] resize-y bg-transparent border-0 p-4 text-[#111318] font-mono text-sm leading-6 placeholder:text-[#9ca3af]/50 focus:ring-0" id="dna-sequence" placeholder=">sequence_id&#10;ATCGGCTA..."></textarea>
                         </div>
                         <div class="h-10 bg-[#f8f9fa] border-t border-[#f0f2f4] flex items-center justify-between px-4 text-xs font-mono text-[#636f88]">
                             <div class="flex items-center gap-4">

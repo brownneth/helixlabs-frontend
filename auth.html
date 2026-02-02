@@ -5,28 +5,12 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Authentication Center - HelixLabs</title>
     <link href="assets/css/style.css" rel="stylesheet"/>
+    <script src="js/config.js"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script>
-        const API_BASE_URL = "https://biocompute-py.onrender.com";
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#195de6",
-                        "background-light": "#f6f6f8",
-                    },
-                    fontFamily: {
-                        "display": ["Inter", "sans-serif"],
-                        "mono": ["Roboto Mono", "Fira Code", "monospace"],
-                    },
-                }
-            }
-        }
-    </script>
-    <script src="assets/js/auth.js" defer></script>
+    <script src="js/auth.js" defer></script>
 </head>
 <body class="bg-background-light min-h-screen flex flex-col items-center justify-center p-4">
-<div class="w-full max-w-[440px] flex flex-col gap-6">
+    <div class="w-full max-w-[440px] flex flex-col gap-6">
     <div class="flex flex-col items-center justify-center gap-3">
         <div class="text-center">
             <h1 class="text-gray-900 text-xl font-bold tracking-tight">HelixLabs</h1>
