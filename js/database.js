@@ -1,25 +1,56 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const tableBody = document.querySelector('tbody');
     const countDisplay = document.querySelector('p.text-xs.font-mono');
-    tableBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-gray-500">Loading records...</td></tr>`;
-
-    try {
-        const response = await fetch(`${API_BASE_URL}/sequences/me`, {
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+    const searchInput = document.getElementById('search-input');
+    loadData();
+    if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = searchInput.value.trim();
+                loadData(query);
             }
         });
-        const result = await response.json();
+    }
+    async function loadData(query = "") {
+        tableBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-gray-500">Loading records...</td></tr>`;
+        
+        try {
+            let url;
+            if (query) {
+                url = `${API_BASE_URL}/sequences/search?q=${encodeURIComponent(query)}`;
+            } else {
+                url = `${API_BASE_URL}/sequences/me`;
+            }
 
-        if (response.ok && result.success) {
-            renderTable(result.data);
-        } else {
-            tableBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-gray-500">No records found. Start a new analysis!</td></tr>`;
-            countDisplay.textContent = "0 Records found";
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            
+            const result = await response.json();
+
+            if (response.ok) {
+                let rows = [];
+                if (Array.isArray(result)) {
+                    rows = result;
+                } else if (result.data) {
+                    rows = result.data;
+                }
+
+                if (rows.length > 0) {
+                    renderTable(rows);
+                } else {
+                    tableBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-gray-500">No records found matching your search.</td></tr>`;
+                    countDisplay.textContent = "0 Records found";
+                }
+            } else {
+                tableBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-red-500">Error: ${result.message || "Failed to fetch"}</td></tr>`;
+            }
+        } catch (error) {
+            console.error("Database Error:", error);
+            tableBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-red-500">Failed to load data. Check console.</td></tr>`;
         }
-    } catch (error) {
-        console.error("Database Error:", error);
-        tableBody.innerHTML = `<tr><td colspan="6" class="px-4 py-8 text-center text-red-500">Failed to load data. Check console.</td></tr>`;
     }
 
     function renderTable(rows) {

@@ -5,12 +5,9 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Sequence Database Registry</title>
     <link href="assets/css/style.css" rel="stylesheet"/>
-
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     
-  <script>
+    <script>
         const API_BASE_URL = "https://biocompute-py.onrender.com";
-        
         window.tailwind = {
             config: {
                 theme: {
@@ -28,6 +25,7 @@
             }
         }
     </script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     
     <script src="js/session.js" defer></script>
     <script src="js/database.js" defer></script>
@@ -67,7 +65,7 @@
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                     <span class="material-symbols-outlined text-slate-400 text-[18px]">search</span>
                 </div>
-                <input class="block w-full rounded-md border-0 py-2 pl-9 pr-3 text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary text-sm font-mono shadow-sm" placeholder="Search by ID, gene name..." type="text"/>
+                <input id="search-input" class="block w-full rounded-md border-0 py-2 pl-9 pr-3 text-slate-900 ring-1 ring-inset ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-primary text-sm font-mono shadow-sm" placeholder="Search by ID, gene name..." type="text"/>
             </div>
             <div class="w-full sm:w-48">
                 <select class="block w-full rounded-md border-0 py-2 pl-3 pr-8 text-slate-900 ring-1 ring-inset ring-slate-200 focus:ring-2 focus:ring-inset focus:ring-primary text-sm shadow-sm cursor-pointer">
